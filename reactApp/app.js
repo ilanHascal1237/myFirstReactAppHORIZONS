@@ -1,18 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const dummyData = ["go home", "laundry", "pick up supplies"];
+const dummyData = [
+  { taskText: "go home", completed: false },
+  { taskText: "laundry", completed: false },
+  { taskText: "pick up supplies", completed: true }
+];
 
 class Todo extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return (
-      <li>
-        <button>X</button> {this.props.text}
-      </li>
-    );
+    if (this.props.completed) {
+      return (
+        <li>
+          <button>X</button> <strike>{this.props.text} </strike>
+        </li>
+      );
+    } else {
+      return (
+        <div>
+          <li>
+            <button>X</button> {this.props.text}
+          </li>
+        </div>
+      );
+    }
   }
 }
 
@@ -54,7 +68,7 @@ class TodoList extends React.Component {
     return (
       <ul>
         {this.props.data.map(data => (
-          <Todo text={data} />
+          <Todo text={data.taskText} completed={data.completed} />
         ))}
       </ul>
     );
