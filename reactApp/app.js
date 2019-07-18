@@ -34,6 +34,15 @@ class TodoApp extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  render() {
+    return (
+      <div>
+        <InputLine />
+        <TodoList data={dummyData} />
+      </div>
+    );
+  }
 }
 
 class TodoList extends React.Component {
@@ -51,4 +60,4 @@ class TodoList extends React.Component {
     );
   }
 }
-ReactDOM.render(<TodoList data={dummyData} />, document.getElementById("root"));
+ReactDOM.render(<TodoApp />, document.getElementById("root"));
