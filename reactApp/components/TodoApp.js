@@ -5,7 +5,7 @@ import TodoList from "./TodoList.js";
 const dummyData = [
   { taskText: "go home", completed: false },
   { taskText: "laundry", completed: false },
-  { taskText: "pick up supplies", completed: true }
+  { taskText: "pick up supplies", completed: false }
 ];
 
 class TodoApp extends React.Component {
@@ -20,16 +20,30 @@ class TodoApp extends React.Component {
     this.setState({ todos: dummyData });
   }
 
-  addTodos(stringTodo) {
+  addTodo(stringTodo) {
     dummyData.push({ taskText: stringTodo, completed: false });
     this.setState({ todos: dummyData });
   }
 
+  removeTodo(index) {
+    dummyData.splice(index, 1);
+    this.setState({});
+    console.log(index);
+  }
+  todoDone(index) {
+    const copy = dummyData.slice(); //copy of dummyDataa
+    copy[index].completed = true;
+    this.setState({ todos: copy });
+  }
   render() {
     return (
       <div>
-        <InputLine submit={input => this.addTodos(input)} />
-        <TodoList todos={this.state.todos} />
+        <InputLine submit={input => this.addTodo(input)} />
+        <TodoList
+          complete={index => this.todoDone(index)}
+          todoXClick={index => this.removeTodo(index)}
+          todos={this.state.todos}
+        />
       </div>
     );
   }
