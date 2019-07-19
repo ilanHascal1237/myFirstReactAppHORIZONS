@@ -12,26 +12,26 @@ class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: []
+      todos: dummyData
     };
   }
 
-  componentDidMount() {
-    this.setState({ todos: dummyData });
-  }
-
   addTodo(stringTodo) {
-    dummyData.push({ taskText: stringTodo, completed: false });
-    this.setState({ todos: dummyData });
+    var current = this.state.todos;
+    var copy = current.slice();
+    copy.push({ taskText: stringTodo, completed: false });
+    this.setState({ todos: copy });
   }
 
   removeTodo(index) {
-    dummyData.splice(index, 1);
-    this.setState({});
+    var current = this.state.todos;
+    var copy = current.slice();
+    copy.splice(index, 1);
+    this.setState({ todos: copy });
     console.log(index);
   }
   todoDone(index) {
-    const copy = dummyData.slice(); //copy of dummyDataa
+    const copy = this.state.todos.slice(); //copy of dummyDataa
     copy[index].completed = true;
     this.setState({ todos: copy });
   }

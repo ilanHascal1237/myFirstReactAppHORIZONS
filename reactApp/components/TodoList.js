@@ -16,7 +16,7 @@ class TodoList extends React.Component {
             key={index}
             indexNum={index}
             completed={data.completed}
-            complete={i => this.props.complete(i)}
+            completer={i => this.props.complete(i)}
           />
         ))}
       </ul>

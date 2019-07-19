@@ -20,7 +20,7 @@ class Todo extends React.Component {
           <li>
             <button onClick={e => this.props.xClick(this.props.indexNum)}>X</button>
             {this.props.text}
-            <button onClick={e => this.props.complete(this.props.indexNum)}>√</button>
+            <button onClick={e => this.props.completer(this.props.indexNum)}>√</button>
           </li>
         </div>
       );
