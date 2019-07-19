@@ -20,10 +20,15 @@ class TodoApp extends React.Component {
     this.setState({ todos: dummyData });
   }
 
+  addTodos(stringTodo) {
+    dummyData.push({ taskText: stringTodo, completed: false });
+    this.setState({ todos: dummyData });
+  }
+
   render() {
     return (
       <div>
-        <InputLine />
+        <InputLine submit={input => this.addTodos(input)} />
         <TodoList todos={this.state.todos} />
       </div>
     );
