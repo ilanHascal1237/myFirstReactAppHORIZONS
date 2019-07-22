@@ -2,11 +2,22 @@ const express = require("express");
 const router = express.Router();
 const TodoItem = require("../models/TodoItem");
 
-router.get("/add", (req, res) => {
+router.post("/add", (req, res) => {
   const testTodo = new TodoItem({
-    task: "learn assembly"
+    task: req.body.taskText
   });
-
+  reouter.get("/all", (req, res) => {
+    TodoItem.find({}),
+      (err, todo) => {
+        if (err) {
+          return res.json({ success: false });
+        }
+        res.json({
+          success: true,
+          todos: todos
+        });
+      };
+  });
   testTodo
     .save()
     .then(response => {
