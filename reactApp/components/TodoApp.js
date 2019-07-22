@@ -1,18 +1,13 @@
 import React from "react";
 import InputLine from "./InputLine.js";
 import TodoList from "./TodoList.js";
-// import axios from "axios"
-const dummyData = [
-  { taskText: "go home", completed: false },
-  { taskText: "laundry", completed: false },
-  { taskText: "pick up supplies", completed: false }
-];
+import axios from "axios";
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: dummyData
+      todos: []
     };
   }
 
