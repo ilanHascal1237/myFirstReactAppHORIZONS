@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const TodoItem = require("../models/TodoItem");
 
 router.get("/add", (req, res) => {
   const testTodo = new TodoItem({
@@ -17,3 +18,7 @@ router.get("/add", (req, res) => {
 });
 
 module.exports = router;
+
+//// HOW does areact component know when a function is called
+//////// \\\\\\\\\\\
+//basic needs to starting a react app

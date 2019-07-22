@@ -11,6 +11,7 @@ class InputLine extends React.Component {
     //////
     event.preventDefault();
     this.setState({ typedText: event.target.value });
+    // e.target.value is only used for when changing text
   }
 
   handleSubmit() {
