@@ -8,11 +8,11 @@ class TodoList extends React.Component {
 
   render() {
     return (
-      <ul>
+      <ul >
         {this.props.todos.map((data, index) => (
           <Todo
-            xClick={index => this.props.todoXClick(index)}
-            text={data.taskText}
+            xClick={() => this.props.todoXClick(data._id)}
+            text={data.task}
             key={index}
             indexNum={index}
             completed={data.completed}
@@ -25,3 +25,4 @@ class TodoList extends React.Component {
 }
 
 export default TodoList;
+{/* <ul style="list-style: none;"> */}

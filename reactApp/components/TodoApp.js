@@ -12,39 +12,48 @@ class TodoApp extends React.Component {
     };
   }
   componentDidMount() {
-    axios
-      .get(dbUrl + "/all", { method: "GET", body: JSON.stringify(postBody) })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(myJson => {
-        console.log(myJson);
-        this.setState({ data: this.state.todos.concat(myJson) });
-      });
+    axios.get(dbUrl + "/all").then(result => {
+      console.log(result);
+      if (result.data.success) {
+        this.setState({
+          todos: result.data.todos
+        });
+      } else {
+        console.log("an error occured on the server side");
+      }
+    });
   }
   addTodo(stringTodo) {
     // var current = this.state.todos;
     // var copy = current.slice(); //copy the array
     // copy.push({ taskText: stringTodo, completed: false });
     // this.setState({ todos: copy }); //set the todos equal tho the copy of the new array with updated taskes\
-    const postBody = { task: stringTodo };
+    // const postBody = { task: stringTodo };
 
-    axios
-      .post(dbUrl + "/add", { method: "POST", body: JSON.stringify(postBody) })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(myJson => {
-        console.log(myJson);
-        this.setState({ data: this.state.todos.concat(myJson) });
-      });
+    axios.post(dbUrl + "/add", { taskText: stringTodo }).then(todo => {
+      console.log(todo.data);
+      this.setState({ todos: this.state.todos.concat(todo.data) });
+    });
   }
 
-  removeTodo(index) {
-    var current = this.state.todos;
-    var copy = current.slice(); //copy the array
-    copy.splice(index, 1); // splice it out of the array..starts at the indx then removes 1 element starting form the given index
-    this.setState({ todos: copy }); //reset the state
+  removeTodo(id) {
+    console.log("IDDDDDD", id);
+    //find the todo object in the database
+    axios.delete(dbUrl + "/remove/" + id).then(response => {
+      const newTodos = this.state.todos.filter(todoObj => {
+        console.log("todoobj", todoObj);
+        //compare the ids
+        if (todoObj._id !== id) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      //reset the statte of the todos
+      this.setState({
+        todos: newTodos
+      });
+    });
   }
   todoDone(index) {
     const copy = this.state.todos.slice(); //copy of dummyDataa
@@ -54,7 +63,7 @@ class TodoApp extends React.Component {
   render() {
     // the submit prop in inputLIne will implement the addTodo function
     return (
-      <div>
+      <div >
         <InputLine submit={input => this.addTodo(input)} />
         <TodoList
           complete={index => this.todoDone(index)}
@@ -65,5 +74,11 @@ class TodoApp extends React.Component {
     );
   }
 }
+
+
+
+//     display: flex;
+// justify-content: center;
+// align-items: center;
 
 export default TodoApp;
